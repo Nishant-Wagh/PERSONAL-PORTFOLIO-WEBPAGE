@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nishant Wagh — Frontend Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #08090a;
+      --surface: #111214;
+      --card: #161719;
+      --accent: #7c3aed;
+      --accent-light: #a78bfa;
+      --accent2: #06b6d4;
+      --text: #f4f4f5;
+      --muted: #71717a;
+      --border: #27272a;
+      --radius: 16px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Bricolage Grotesque', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8,9,10,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-logo span { color: var(--accent-light); }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .nav-cta {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 20px;
+      font-family: inherit;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .nav-cta:hover { background: #6d28d9; }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 100px 80px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(124,58,237,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 30% 80%, rgba(6,182,212,0.06) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(124,58,237,0.12);
+      border: 1px solid rgba(124,58,237,0.3);
+      border-radius: 99px;
+      padding: 6px 16px;
+      font-size: 0.8rem;
+      color: var(--accent-light);
+      margin-bottom: 20px;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .badge-dot {
+      width: 6px; height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: blink 1.5s infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent-light), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 28px;
+      border-radius: 10px;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.92rem;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #6d28d9; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      border: 1.5px solid var(--border);
+      color: var(--text);
+    }
+    .btn-secondary:hover { border-color: var(--accent-light); color: var(--accent-light); }
+
+    .hero-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 40px;
+    }
+
+    .tech-tag {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 0.78rem;
+      font-family: 'Fira Code', monospace;
+      color: var(--muted);
+    }
+
+    /* Hero Card */
+    .hero-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+
+    .profile-photo {
+      width: 100px; height: 100px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 auto 20px;
+    }
+
+    .hero-card h3 {
+      text-align: center;
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+
+    .hero-card p {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      margin-bottom: 24px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat {
+      text-align: center;
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 14px 8px;
+    }
+
+    .stat .num {
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: block;
+    }
+
+    .stat .label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .skill-bars { display: flex; flex-direction: column; gap: 10px; }
+
+    .skill-bar-item { display: flex; flex-direction: column; gap: 4px; }
+
+    .skill-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .skill-bar-track {
+      height: 5px;
+      background: var(--border);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      animation: fillBar 1.2s ease both;
+    }
+
+    @keyframes fillBar { from { width: 0 !important; } }
+
+    /* ===== SECTION ===== */
+    section { padding: 100px 80px; max-width: 1280px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.8rem;
+      color: var(--accent-light);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 14px;
+      letter-spacing: -0.5px;
+    }
+
+    .section-desc {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 520px;
+      margin-bottom: 60px;
+    }
+
+    /* ===== ABOUT ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .about-text p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .education-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .education-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+    .education-card p  { font-size: 0.82rem; color: var(--muted); margin: 0; }
+    .education-card .year { color: var(--accent-light); font-family: 'Fira Code', monospace; font-size: 0.8rem; }
+
+    .skills-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .skill-card:hover { border-color: var(--accent); }
+
+    .skill-icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+
+    .skill-card h4 { font-size: 0.88rem; font-weight: 700; margin-bottom: 4px; }
+    .skill-card p  { font-size: 0.75rem; color: var(--muted); }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(124,58,237,0.15);
+    }
+
+    .project-thumb {
+      height: 160px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+
+    .project-body { padding: 20px; }
+
+    .project-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .project-tag {
+      background: rgba(124,58,237,0.12);
+      color: var(--accent-light);
+      border-radius: 4px;
+      padding: 3px 8px;
+      font-size: 0.72rem;
+      font-family: 'Fira Code', monospace;
+    }
+
+    .project-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 8px; }
+
+    .project-card p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; margin-bottom: 16px; }
+
+    .project-links { display: flex; gap: 10px; }
+
+    .proj-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .proj-link:hover { color: #fff; }
+
+    /* ===== CONTACT ===== */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--muted); }
+
+    .form-group input, .form-group textarea {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent);
+    }
+
+    .form-group textarea { resize: vertical; min-height: 120px; }
+
+    .contact-info-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-item:last-child { border: none; }
+
+    .ci-icon {
+      width: 40px; height: 40px;
+      background: rgba(124,58,237,0.12);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .ci-text span { display: block; font-size: 0.72rem; color: var(--muted); }
+    .ci-text strong { font-size: 0.88rem; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--accent-light); text-decoration: none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .hero { padding: 100px 24px 60px; }
+      section { padding: 60px 24px; }
+      .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#home" class="nav-logo">NW<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
+    Hire Me →
+  </button>
+</nav>
+
+<!-- HERO -->
+<div id="home" style="position:relative">
+  <div class="hero-bg"></div>
+  <div class="hero">
+    <div class="hero-grid">
+      <div class="hero-left">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Available for Opportunities
+        </div>
+        <h1>
+          Hi, I'm <span class="highlight">Nishant Wagh</span><br/>
+          Frontend Developer
+        </h1>
+        <p>
+          I build responsive, accessible, and beautiful web experiences. 
+          Currently interning at Codtech IT Solutions, crafting modern UIs with HTML, CSS, JavaScript & React.
+        </p>
+        <div class="hero-actions">
+          <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+          <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+        </div>
+        <div class="hero-tech">
+          <span class="tech-tag">HTML5</span>
+          <span class="tech-tag">CSS3</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">React.js</span>
+          <span class="tech-tag">Git</span>
+          <span class="tech-tag">VS Code</span>
+        </div>
+      </div>
+
+      <div class="hero-card">
+        <div class="profile-photo">NW</div>
+        <h3>Nishant Satish Wagh</h3>
+        <p>Frontend Developer · Codtech Intern</p>
+        <div class="stats-row">
+          <div class="stat">
+            <span class="num" style="color:var(--accent-light)">4</span>
+            <span class="label">Tasks</span>
+          </div>
+          <div class="stat">
+            <span class="num" style="color:#4ade80">10+</span>
+            <span class="label">Projects</span>
+          </div>
+          <div class="stat">
+            <span class="num" style="color:var(--accent2)">3+</span>
+            <span class="label">Yrs Learn</span>
+          </div>
+        </div>
+        <div class="skill-bars">
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>HTML & CSS</span><span>92%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:92%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>JavaScript</span><span>80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>React.js</span><span>70%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:70%"></div></div>
+          </div>
+          <div class="skill-bar-item">
+            <div class="skill-bar-label"><span>Git & GitHub</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">// about_me</div>
+  <div class="section-title">A little about myself</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm Nishant Wagh, a passionate Frontend Web Developer based in Pune, India. 
+        I love turning creative ideas into pixel-perfect, performant web applications.
+      </p>
+      <p>
+        Currently doing a 4-week Frontend Web Development internship at Codtech IT Solutions (Intern ID: CITS97), 
+        where I'm building real-world projects including quiz apps, chat interfaces, portfolios, and e-learning platforms.
+      </p>
+      <p>
+        When I'm not coding, I enjoy exploring new technologies, contributing to open-source, 
+        and sharpening my problem-solving skills.
+      </p>
+      <div class="education-card">
+        <span class="year">2022 – 2026</span>
+        <h4>Bachelor of Engineering</h4>
+        <p>Computer Science / Information Technology · Pune, Maharashtra</p>
+      </div>
+      <div class="education-card" style="margin-top:12px">
+        <span class="year">May – June 2026</span>
+        <h4>Frontend Web Dev Internship</h4>
+        <p>Codtech IT Solutions Pvt. Ltd. · Hyderabad (Remote)</p>
+      </div>
+    </div>
+    <div>
+      <div class="skills-list">
+        <div class="skill-card">
+          <span class="skill-icon">🎨</span>
+          <h4>UI/UX Design</h4>
+          <p>Figma, Adobe XD, responsive layouts</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">⚛️</span>
+          <h4>React.js</h4>
+          <p>Hooks, state management, component architecture</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">🌐</span>
+          <h4>Web Standards</h4>
+          <p>HTML5, CSS3, Flexbox, Grid, animations</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">⚡</span>
+          <h4>JavaScript</h4>
+          <p>ES6+, DOM, async/await, APIs</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">🐙</span>
+          <h4>Git & GitHub</h4>
+          <p>Version control, branching, collaboration</p>
+        </div>
+        <div class="skill-card">
+          <span class="skill-icon">📱</span>
+          <h4>Responsive Design</h4>
+          <p>Mobile-first, cross-browser compatibility</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--surface); max-width:100%; padding:100px 80px">
+  <div style="max-width:1200px; margin:0 auto">
+    <div class="section-label">// my_projects</div>
+    <div class="section-title">Things I've built</div>
+    <div class="section-desc">A showcase of my projects — from internship tasks to personal experiments.</div>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#1a1a2e,#16213e)">⚡</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+          <h3>QuizMaster App</h3>
+          <p>Interactive quiz application with timer, instant feedback, dynamic question loading, and score tracking.</p>
+          <div class="project-links">
+            <a href="#" class="proj-link">🔗 Live Demo</a>
+            <a href="#" class="proj-link">📂 GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#0f172a,#1e1b4b)">💬</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">WebSockets</span>
+          </div>
+          <h3>ChatFlow App</h3>
+          <p>Real-time chat interface with message history, typing indicators, multiple contacts, and auto-replies.</p>
+          <div class="project-links">
+            <a href="#" class="proj-link">🔗 Live Demo</a>
+            <a href="#" class="proj-link">📂 GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#0c0a09,#1c1917)">📚</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">HTML</span>
+            <span class="project-tag">CSS</span>
+            <span class="project-tag">JavaScript</span>
+          </div>
+          <h3>E-Learning Platform UI</h3>
+          <p>Styled multi-page e-learning platform with course listings, progress tracking, and video embedding.</p>
+          <div class="project-links">
+            <a href="#" class="proj-link">🔗 Live Demo</a>
+            <a href="#" class="proj-link">📂 GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#052e16,#166534)">🌦️</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">API</span>
+            <span class="project-tag">CSS</span>
+          </div>
+          <h3>Weather Dashboard</h3>
+          <p>Real-time weather app using OpenWeatherMap API with search, 5-day forecast and animated icons.</p>
+          <div class="project-links">
+            <a href="#" class="proj-link">🔗 Live Demo</a>
+            <a href="#" class="proj-link">📂 GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#1e1b4b,#312e81)">✅</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">localStorage</span>
+            <span class="project-tag">CSS</span>
+          </div>
+          <h3>Task Manager App</h3>
+          <p>CRUD-based task manager with drag-and-drop, categories, priority levels and local persistence.</p>
+          <div class="project-links">
+            <a href="#" class="proj-link">🔗 Live Demo</a>
+            <a href="#" class="proj-link">📂 GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb" style="background:linear-gradient(135deg,#1c1917,#44403c)">🛒</div>
+        <div class="project-body">
+          <div class="project-tags">
+            <span class="project-tag">React</span>
+            <span class="project-tag">Context API</span>
+            <span class="project-tag">CSS</span>
+          </div>
+          <h3>E-Commerce UI</h3>
+          <p>Product listing with cart, filters, search functionality and responsive design built with React.</p>
+          <div class="project-links">
+            <a href="#" class="proj-link">🔗 Live Demo</a>
+            <a href="#" class="proj-link">📂 GitHub</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">// get_in_touch</div>
+  <div class="section-title">Let's work together</div>
+  <div class="section-desc">Have a project in mind or want to connect? I'd love to hear from you!</div>
+  <div class="contact-grid">
+    <div class="contact-form">
+      <div class="form-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="John Doe"/>
+      </div>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="john@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <input type="text" placeholder="Project Inquiry"/>
+      </div>
+      <div class="form-group">
+        <label>Message</label>
+        <textarea placeholder="Tell me about your project…"></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="alert('Message sent! I\'ll get back to you soon 😊')">
+        Send Message →
+      </button>
+    </div>
+
+    <div>
+      <div class="contact-info-card">
+        <div class="contact-item">
+          <div class="ci-icon">📧</div>
+          <div class="ci-text">
+            <span>Email</span>
+            <strong>nishantwagh@example.com</strong>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">📍</div>
+          <div class="ci-text">
+            <span>Location</span>
+            <strong>Pune, Maharashtra, India</strong>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">🐙</div>
+          <div class="ci-text">
+            <span>GitHub</span>
+            <strong>github.com/nishantwagh</strong>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">💼</div>
+          <div class="ci-text">
+            <span>LinkedIn</span>
+            <strong>linkedin.com/in/nishantwagh</strong>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="ci-icon">🏢</div>
+          <div class="ci-text">
+            <span>Internship</span>
+            <strong>Codtech IT Solutions · CITS97</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Nishant Satish Wagh · Built with ❤️ using HTML, CSS & JavaScript · 
+    <a href="#">GitHub</a> · <a href="#">LinkedIn</a>
+  </p>
+</footer>
+
+<script>
+  // Smooth active nav highlighting
+  const sections = document.querySelectorAll('section, div[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? '#f4f4f5' : '';
+    });
+  });
+</script>
+
+</body>
+</html>
