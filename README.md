@@ -17,3 +17,5 @@ Framework  None — Pure HTML/CSS/JS
 Font  Google Fonts — Bricolage Grotesque + Fira Code
 Sections Hero, About, Skills, Projects (6 cards), Contact Form, Footer
 How to Run  Open index.html in browser OR Live Server
+
+<img width="1339" height="647" alt="Image" src="https://github.com/user-attachments/assets/c2f13fbd-ef69-46e9-84f0-5069e69bb7b7" />
